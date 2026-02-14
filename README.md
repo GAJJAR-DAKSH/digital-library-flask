@@ -6,14 +6,14 @@ A modern **Flask-based Digital Library Web App** that allows users to manage boo
 
 ## 🚀 Features
 
-✅ Add and manage books
-✅ Borrow & Return system with queue processing
-✅ Book availability tracking
-✅ Search by title and author
-✅ ⭐ AJAX-based review system
-✅ Borrow history tracking
-✅ Clean responsive UI (Bulma + Custom CSS)
-✅ Data Structures integrated:
+- ✅ Add and manage books
+- ✅ Borrow & Return system with queue processing
+- ✅ Book availability tracking
+- ✅ Search by title and author
+- ✅ ⭐ AJAX-based review system
+- ✅ Borrow history tracking
+- ✅ Clean responsive UI (Bulma + Custom CSS)
+- ✅ Data Structures integrated:
 
 * Queue → Borrow requests
 * LinkedList → Book listing
