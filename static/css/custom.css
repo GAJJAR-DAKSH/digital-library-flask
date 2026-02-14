@@ -1,0 +1,29 @@
+/* small custom styles to blend Bootstrap + Bulma */
+body {
+  padding-top: 1.5rem;
+  padding-bottom: 2rem;
+  background: #f8f9fa;
+}
+
+.navbar-brand {
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.card {
+  margin-bottom: 1rem;
+}
+
+/* make the page container narrower on wide screens */
+.container.custom-container {
+  max-width: 1000px;
+}
+
+/* small review block */
+.review-block {
+  background: #fff;
+  border-radius: 8px;
+  padding: 0.8rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  margin-bottom: 0.5rem;
+}
