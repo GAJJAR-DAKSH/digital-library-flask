@@ -129,11 +129,5 @@ http://127.0.0.1:5000
 
 ---
 
-## 👨‍💻 Author
-
-**Daksh Gajjar**
-Frontend & Python Developer
-
----
 
 ⭐ If you like this project, consider giving it a star!
