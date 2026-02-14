@@ -1,0 +1,241 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+/* ==============================
+        THEME COLORS
+============================== */
+:root {
+  --primary: #0e7c47;
+  --primary-soft: #e3f6ea;
+  --text-dark: #064b37;
+  --text-light: #1b6e52;
+  --border-light: #b7ecd7;
+}
+
+/* ==============================
+        MAIN WRAPPER
+============================== */
+.home-container {
+  margin-top: 35px;
+  padding-bottom: 40px;
+}
+
+/* ==============================
+        HERO SECTION
+============================== */
+.hero-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--primary-soft);
+  border-radius: 26px;
+  border: 1px solid var(--border-light);
+  padding: 65px 50px;
+  box-shadow: 0 15px 40px rgba(0, 150, 100, 0.20);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Glow circle */
+.hero-circle {
+  position: absolute;
+  width: 340px;
+  height: 340px;
+  border-radius: 50%;
+  background: rgba(0, 180, 120, 0.18);
+  filter: blur(45px);
+  right: -120px;
+  top: -80px;
+}
+
+/* Hero text */
+.hero-left {
+  width: 55%;
+  z-index: 2;
+}
+
+.hero-title {
+  font-size: 3.1rem;
+  font-weight: 800;
+  color: var(--primary);
+  line-height: 1.2;
+}
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  color: var(--text-light);
+  margin-top: 14px;
+  max-width: 520px;
+  line-height: 1.6;
+}
+
+/* Buttons */
+.hero-buttons .button {
+  border-radius: 12px;
+  font-weight: 600;
+  padding: 12px 20px;
+}
+
+/* Illustration */
+.hero-illustration {
+  width: 300px;
+  animation: floatY 4s ease-in-out infinite alternate;
+  z-index: 2;
+}
+
+@keyframes floatY {
+  from { transform: translateY(0px); }
+  to { transform: translateY(-15px); }
+}
+
+/* ==============================
+        FEATURE CARDS
+============================== */
+.feature-wrapper {
+  margin-top: 60px;
+}
+
+.feature-card-new {
+  background: #ffffff;
+  padding: 28px;
+  border-radius: 20px;
+  border: 1px solid var(--border-light);
+  text-align: center;
+  box-shadow: 0 10px 32px rgba(0, 160, 110, 0.12);
+  transition: 0.3s ease;
+}
+
+.feature-card-new:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 46px rgba(0, 200, 130, 0.23);
+}
+
+/* Icon box */
+.feature-icon-box {
+  width: 72px;
+  height: 72px;
+  border-radius: 18px;
+  background: var(--primary-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+  font-size: 2rem;
+  color: var(--primary);
+  font-weight: 700;
+  box-shadow: inset 0 0 12px rgba(0, 180, 120, 0.18);
+}
+
+/* Titles */
+.feature-title-new {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 8px;
+}
+
+.feature-desc-new {
+  color: var(--text-light);
+  margin-bottom: 14px;
+  font-size: 0.95rem;
+}
+
+/* Buttons in cards */
+.feature-card-new .button {
+  border-radius: 10px;
+  font-weight: 600;
+  padding: 8px 18px;
+}
+
+/* ==============================
+          RESPONSIVE
+============================== */
+@media (max-width: 900px) {
+  .hero-section {
+    flex-direction: column;
+    text-align: center;
+    padding: 45px 25px;
+  }
+
+  .hero-left {
+    width: 100%;
+  }
+
+  .hero-illustration {
+    margin-top: 25px;
+  }
+}
+</style>
+
+
+<!-- ==============================
+           PAGE CONTENT
+============================== -->
+<div class="home-container">
+
+  <!-- ==============================
+               HERO
+  =============================== -->
+  <div class="hero-section">
+
+    <div class="hero-circle"></div>
+
+    <div class="hero-left">
+      <h1 class="hero-title">Your Digital Library</h1>
+
+      <p class="hero-subtitle">
+        Manage your entire collection — add, borrow, return, search,
+        and read reviews — all in a clean and modern interface.
+      </p>
+
+      <div class="buttons hero-buttons">
+        <a href="{{ url_for('list_books') }}" class="button is-success is-medium">📚 Explore Books</a>
+        <a href="{{ url_for('add_book') }}" class="button is-link is-medium">➕ Add Book</a>
+      </div>
+    </div>
+
+    <img 
+      src="https://cdn-icons-png.flaticon.com/512/4072/4072154.png" 
+      class="hero-illustration"
+      alt="Library Illustration"
+    />
+  </div>
+
+  <!-- ==============================
+              FEATURE CARDS
+  =============================== -->
+  <div class="columns is-multiline feature-wrapper">
+
+    <div class="column is-4">
+      <div class="feature-card-new">
+        <div class="feature-icon-box"><span>➕</span></div>
+        <h3 class="feature-title-new">Add New Book</h3>
+        <p class="feature-desc-new">Quickly expand your digital library.</p>
+        <a href="{{ url_for('add_book') }}" class="button is-success is-light is-small">Add</a>
+      </div>
+    </div>
+
+    <div class="column is-4">
+      <div class="feature-card-new">
+        <div class="feature-icon-box"><span>📚</span></div>
+        <h3 class="feature-title-new">View All Books</h3>
+        <p class="feature-desc-new">Browse your complete book collection.</p>
+        <a href="{{ url_for('list_books') }}" class="button is-link is-light is-small">View</a>
+      </div>
+    </div>
+
+    <div class="column is-4">
+      <div class="feature-card-new">
+        <div class="feature-icon-box"><span>📥</span></div>
+        <h3 class="feature-title-new">Borrow Books</h3>
+        <p class="feature-desc-new">Borrow any available book easily.</p>
+        <a href="{{ url_for('borrow') }}" class="button is-success is-light is-small">Borrow</a>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+{% endblock %}
