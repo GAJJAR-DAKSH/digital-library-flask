@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+    .card-box {
+        background: white;
+        padding: 30px;
+        border-radius: 18px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        max-width: 650px;
+        margin: auto;
+        margin-top: 20px;
+    }
+
+    .heading {
+        font-size: 24px;
+        font-weight: 700;
+        color: #0e7c47;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+
+    .input, .textarea {
+        width: 100%;
+        padding: 10px 12px;
+        border-radius: 10px;
+        border: 1px solid #cfd9d3;
+        font-size: 16px;
+        transition: 0.3s ease;
+    }
+
+    .input:focus, .textarea:focus {
+        border-color: #0e7c47;
+        box-shadow: 0px 0px 8px rgba(14, 124, 71, 0.25);
+        outline: none;
+    }
+
+    .submit-btn {
+        width: 100%;
+        background: #0e7c47;
+        color: white;
+        padding: 12px;
+        border-radius: 12px;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 600;
+        transition: 0.3s ease;
+        margin-top: 10px;
+    }
+
+    .submit-btn:hover {
+        background: #139e5a;
+        box-shadow: 0 4px 12px rgba(0, 130, 70, 0.25);
+    }
+</style>
+
+<div class="card-box">
+    <div class="heading">➕ Add New Book</div>
+
+    <form method="post">
+        <label>Book Title</label>
+        <input class="input" name="title" required>
+
+        <br><br>
+
+        <label>Author</label>
+        <input class="input" name="author" required>
+
+        <br><br>
+
+        <label>ISBN (4 digits + 2 uppercase letters)</label>
+        <input class="input" name="isbn" maxlength="6" required>
+
+        <br><br>
+
+        <label>Quantity</label>
+        <input class="input" type="number" name="quantity" min="1" value="1" required>
+
+        <button class="submit-btn" type="submit">Add Book</button>
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management System</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #f3f7f4;
+        }
+
+        /* Floating Glass Navbar */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            padding: 12px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #0e7c47;
+            letter-spacing: 1px;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 18px;
+            padding: 0;
+            margin: 0;
+        }
+
+        .navbar ul li a {
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 12px;
+            color: #333;
+            font-weight: 500;
+            transition: 0.3s ease;
+        }
+
+        .navbar ul li a:hover {
+            background: #e3f6ea;
+            box-shadow: 0px 4px 12px rgba(15, 150, 81, 0.15);
+            color: #0e7c47;
+        }
+
+        .container {
+            padding: 30px 20px;
+            max-width: 1050px;
+            margin: auto;
+        }
+
+        footer {
+            margin-top: 40px;
+            padding: 20px 0;
+            background: rgba(0, 80, 40, 0.08);
+            color: #0d4a2e;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        /* Flash messages */
+        .flash {
+            background: #d4fadd;
+            border-left: 5px solid #1ea85e;
+            padding: 12px 18px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            color: #0d6b37;
+            animation: fade 0.5s ease;
+        }
+
+        @keyframes fade {
+            from { opacity: 0; transform: translateY(-6px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ✅ NAVBAR -->
+    <nav class="navbar">
+        <div class="logo">📚 My Library</div>
+
+        <ul>
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('list_books') }}">Books</a></li>
+            <li><a href="{{ url_for('add_book') }}">Add Book</a></li>
+            <li><a href="{{ url_for('borrow') }}">Borrow</a></li>
+            <li><a href="{{ url_for('return_book') }}">Return</a></li>
+
+
+            <!-- ✅ Reviews (correct endpoint) -->
+            <li><a href="{{ url_for('reviews') }}">Reviews</a></li>
+            
+        </ul>
+    </nav>
+
+    <!-- ✅ PAGE CONTENT -->
+    <div class="container">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="flash">{{ messages[0] }}</div>
+        {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- ✅ FOOTER -->
+    <footer>
+        Library Management System © {{ current_year }}
+    </footer>
+
+</body>
+</html>

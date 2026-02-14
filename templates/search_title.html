@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+    .search-box {
+        background: white;
+        padding: 30px;
+        border-radius: 18px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        margin-top: 20px;
+        max-width: 750px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .heading {
+        font-size: 26px;
+        font-weight: 700;
+        color: #0e7c47;
+        text-align: center;
+        margin-bottom: 22px;
+    }
+
+    .search-row {
+        display: flex;
+        gap: 10px;
+    }
+
+    .search-input {
+        flex: 1;
+        padding: 12px;
+        border-radius: 12px;
+        border: 1px solid #c8dcd3;
+        font-size: 16px;
+        transition: 0.3s ease;
+    }
+
+    .search-input:focus {
+        border-color: #0e7c47;
+        box-shadow: 0px 0px 8px rgba(14,124,71,0.25);
+        outline: none;
+    }
+
+    .search-btn {
+        padding: 12px 20px;
+        background: #0e7c47;
+        color: white;
+        font-weight: 600;
+        border-radius: 12px;
+        border: none;
+        cursor: pointer;
+        transition: 0.25s ease;
+    }
+
+    .search-btn:hover {
+        background: #139e5a;
+        box-shadow: 0 4px 12px rgba(0,130,70,0.25);
+    }
+
+    .book-details {
+        margin-top: 25px;
+        background: #f7faf8;
+        padding: 18px;
+        border-radius: 12px;
+        border-left: 4px solid #0e7c47;
+    }
+
+    .book-title {
+        font-size: 20px;
+        font-weight: 600;
+        color: #0e7c47;
+    }
+
+    .review-block {
+        background: white;
+        padding: 14px;
+        border-radius: 12px;
+        border: 1px solid #d8e4de;
+        box-shadow: 0px 2px 6px rgba(0,0,0,0.05);
+        margin-top: 12px;
+    }
+
+    .review-user {
+        font-weight: 600;
+        color: #0e7c47;
+    }
+
+    .no-reviews {
+        margin-top: 10px;
+        font-size: 16px;
+        color: #0d4a2e;
+    }
+</style>
+
+
+<div class="search-box">
+
+    <div class="heading">🔍 Search by Book Title</div>
+
+    <!-- Search Form -->
+    <form method="post">
+        <div class="search-row">
+            <input type="text" name="title" class="search-input" placeholder="Enter full book title" required>
+            <button class="search-btn" type="submit">Search</button>
+        </div>
+    </form>
+
+    <!-- If a book is found -->
+    {% if book %}
+        <div class="book-details">
+            <div class="book-title">{{ book.title }}</div>
+            <p><strong>Author:</strong> {{ book.author }}</p>
+            <p><strong>ISBN:</strong> {{ book.ISBN }}</p>
+            <p><strong>Available:</strong> {{ book.quantity }}</p>
+
+            <h4 style="margin-top: 18px; font-size: 18px; color: #0e7c47;">Reviews</h4>
+
+            {% if book.reviews %}
+                {% for r in book.reviews %}
+                    <div class="review-block">
+                        <div class="review-user">{{ r.userId }} — ⭐ {{ r.rating }}/5</div>
+                        <p>{{ r.comment }}</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p class="no-reviews">No reviews yet.</p>
+            {% endif %}
+        </div>
+    {% endif %}
+
+</div>
+
+{% endblock %}

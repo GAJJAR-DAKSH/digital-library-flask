@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+    .book-wrapper {
+        background: white;
+        padding: 30px;
+        border-radius: 18px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        margin-top: 20px;
+    }
+
+    .page-title {
+        font-size: 26px;
+        font-weight: 700;
+        color: #0e7c47;
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    thead {
+        background: #e8f5ed;
+        color: #0e7c47;
+    }
+
+    th, td {
+        padding: 12px;
+        border-bottom: 1px solid #d9e6df;
+        font-size: 16px;
+    }
+
+    tr:hover {
+        background: #f4faf6;
+    }
+
+    .badge {
+        padding: 6px 12px;
+        border-radius: 10px;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .available {
+        background: #d7f8e6;
+        color: #0d8e52;
+        border: 1px solid #64d596;
+    }
+
+    .borrowed {
+        background: #ffe2e2;
+        color: #d12f2f;
+        border: 1px solid #ffa1a1;
+    }
+</style>
+
+<div class="book-wrapper">
+    <div class="page-title">📚 Library Books</div>
+
+    {% if books %}
+        <table>
+            <thead>
+                <tr>
+                    <th>ISBN</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Total</th>
+                    <th>Remaining</th>
+                    <th>Status</th>
+                    <th>Borrowed By</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for book in books %}
+                <tr>
+                    <td>{{ book.isbn }}</td>
+                    <td>{{ book.title }}</td>
+                    <td>{{ book.author }}</td>
+
+                    <!-- Total quantity -->
+                    <td>{{ book.quantity }}</td>
+
+                    <!-- Remaining quantity -->
+                    <td>{{ book.remainingQty }}</td>
+
+                    <!-- Status -->
+                    <td>
+                        {% if book.remainingQty > 0 %}
+                            <span class="badge available">Available</span>
+                        {% else %}
+                            <span class="badge borrowed">Borrowed</span>
+                        {% endif %}
+                    </td>
+
+                    <!-- Borrowed by -->
+                    <td>
+                        {% if book.borrowedBy %}
+                            👤 {{ book.borrowedBy }}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    {% else %}
+        <p style="text-align:center; font-size:18px; color:#0e7c47;">
+            No books found.
+        </p>
+    {% endif %}
+</div>
+
+{% endblock %}

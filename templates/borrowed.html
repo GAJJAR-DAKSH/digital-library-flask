@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+    .borrowed-box {
+        background: white;
+        padding: 30px;
+        border-radius: 18px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        margin-top: 20px;
+        max-width: 850px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .title-text {
+        font-size: 26px;
+        font-weight: 700;
+        color: #0e7c47;
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    thead {
+        background: #e8f5ed;
+        color: #0e7c47;
+    }
+
+    th, td {
+        padding: 12px;
+        border-bottom: 1px solid #d9e6df;
+        font-size: 16px;
+    }
+
+    tr:hover {
+        background: #f4faf6;
+        transition: 0.2s;
+    }
+
+    .no-data {
+        text-align: center;
+        font-size: 18px;
+        color: #0e7c47;
+        margin-top: 20px;
+    }
+</style>
+
+<div class="borrowed-box">
+    <div class="title-text">📚 Borrowed Books</div>
+
+    {% if borrowed %}
+        <table>
+            <thead>
+                <tr>
+                    <th>User ID</th>
+                    <th>ISBN</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in borrowed %}
+                    <tr>
+                        <td>{{ row.user }}</td>
+                        <td>{{ row.isbn }}</td>
+                        <td>{{ row.title }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    {% else %}
+        <div class="no-data">No books are borrowed currently.</div>
+    {% endif %}
+</div>
+
+{% endblock %}

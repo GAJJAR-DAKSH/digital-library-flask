@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+    .author-box {
+        background: white;
+        padding: 30px;
+        border-radius: 18px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        margin-top: 20px;
+        max-width: 750px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .heading {
+        font-size: 26px;
+        font-weight: 700;
+        color: #0e7c47;
+        text-align: center;
+        margin-bottom: 22px;
+    }
+
+    .search-row {
+        display: flex;
+        gap: 10px;
+    }
+
+    .search-input {
+        flex: 1;
+        padding: 12px;
+        border-radius: 12px;
+        border: 1px solid #c8dcd3;
+        font-size: 16px;
+        transition: 0.3s ease;
+    }
+
+    .search-input:focus {
+        border-color: #0e7c47;
+        box-shadow: 0px 0px 8px rgba(14,124,71,0.25);
+        outline: none;
+    }
+
+    .search-btn {
+        padding: 12px 20px;
+        background: #0e7c47;
+        color: white;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: 0.25s ease;
+    }
+
+    .search-btn:hover {
+        background: #139e5a;
+        box-shadow: 0 4px 12px rgba(0,130,70,0.25);
+    }
+
+    .result-item {
+        background: #f7faf8;
+        padding: 14px 18px;
+        border-radius: 12px;
+        border-left: 4px solid #0e7c47;
+        margin-top: 12px;
+    }
+
+    .book-title {
+        font-size: 18px;
+        font-weight: 600;
+        color: #0e7c47;
+    }
+
+    .no-results {
+        margin-top: 15px;
+        font-size: 16px;
+        text-align: center;
+        color: #0e7c47;
+    }
+</style>
+
+
+<div class="author-box">
+
+    <div class="heading">🖊️ Search by Author</div>
+
+    <!-- Search Form -->
+    <form method="post">
+        <div class="search-row">
+            <input type="text" name="author" class="search-input" placeholder="Enter author name" required>
+            <button class="search-btn" type="submit">Search</button>
+        </div>
+    </form>
+
+    <!-- Results -->
+    {% if results %}
+        <h4 style="margin-top: 20px; font-size: 18px; color: #0e7c47; font-weight: 600;">
+            Books by this author:
+        </h4>
+
+        {% for b in results %}
+            <div class="result-item">
+                <div class="book-title">{{ b.title }}</div>
+                <p><strong>ISBN:</strong> {{ b.ISBN }}  
+                &nbsp; | &nbsp; 
+                <strong>Available:</strong> {{ b.quantity }}</p>
+            </div>
+        {% endfor %}
+
+    {% elif results is not none %}
+        <p class="no-results">No books found for this author.</p>
+    {% endif %}
+
+</div>
+
+{% endblock %}

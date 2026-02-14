@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+    body { background: #f4f8f6; }
+    .review-card {
+        background: white;
+        padding: 32px;
+        border-radius: 18px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        max-width: 650px;
+        margin: auto;
+        margin-top: 20px;
+    }
+
+    .heading {
+        font-size: 26px;
+        font-weight: 700;
+        color: #0e7c47;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .input-field, .textarea-field, .rating-select {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #c8dcd3;
+        border-radius: 12px;
+        font-size: 16px;
+        margin-top: 6px;
+    }
+
+    .submit-btn {
+        width: 100%;
+        background: #0e7c47;
+        color: white;
+        padding: 12px;
+        border-radius: 12px;
+        border: none;
+        cursor: pointer;
+        font-size: 17px;
+        font-weight: 600;
+        margin-top: 20px;
+    }
+
+    .submit-btn:hover { background: #139e5a; }
+
+    .review-list {
+        max-width: 650px;
+        margin: 30px auto;
+        background: #f9fcfa;
+        border-radius: 16px;
+        padding: 20px;
+    }
+
+    .review-box {
+        background: white;
+        border: 1px solid #d9efe3;
+        border-radius: 12px;
+        padding: 15px 20px;
+        margin-bottom: 15px;
+    }
+
+    .review-title {
+        font-weight: 600;
+        color: #0e7c47;
+    }
+
+    .review-rating {
+        color: #f4b400;
+        font-weight: 600;
+    }
+</style>
+
+
+<div class="review-card">
+    <div class="heading">⭐ Add Book Review</div>
+
+    <form id="reviewForm">
+        <label>ISBN</label>
+        <input class="input-field" name="isbn" placeholder="Enter ISBN" required>
+
+        <label>User ID</label>
+        <input class="input-field" name="userId" placeholder="Enter your User ID" required>
+
+        <label>Review Comment</label>
+        <textarea class="textarea-field" name="comment" placeholder="Write your review..." required></textarea>
+
+        <label>Rating (1 to 5)</label>
+        <select name="rating" class="rating-select" required>
+            <option value="" disabled selected>Select rating</option>
+            <option value="5">⭐ 5 - Excellent</option>
+            <option value="4">⭐ 4 - Good</option>
+            <option value="3">⭐ 3 - Average</option>
+            <option value="2">⭐ 2 - Poor</option>
+            <option value="1">⭐ 1 - Very Bad</option>
+        </select>
+
+        <button type="submit" class="submit-btn">Submit Review</button>
+    </form>
+</div>
+
+
+<div class="review-list">
+    <h3 style="color:#0e7c47; font-weight:700;">📚 Recent Reviews</h3>
+    <div id="reviewsContainer">
+        {% for r in reviews %}
+        <div class="review-box">
+            <div class="review-title">{{ r.book_title or "Unknown Book" }}</div>
+            <div><strong>ISBN:</strong> {{ r.isbn }}</div>
+            <div>“{{ r.comment }}”</div>
+            <div class="review-rating">⭐ {{ r.rating }}/5</div>
+            <div style="font-size:13px; color:#666;">By {{ r.user_id }} • {{ r.created_at }}</div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+document.getElementById("reviewForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const formData = new FormData(this);
+    const response = await fetch("/add_review", {
+        method: "POST",
+        body: formData
+    });
+    const data = await response.json();
+
+    // Create new review HTML
+    const div = document.createElement("div");
+    div.classList.add("review-box");
+    div.innerHTML = `
+        <div class="review-title">New Book Review</div>
+        <div><strong>ISBN:</strong> ${data.isbn}</div>
+        <div>"${data.comment}"</div>
+        <div class="review-rating">⭐ ${data.rating}/5</div>
+        <div style="font-size:13px; color:#666;">By ${data.user_id} • ${data.created_at}</div>
+    `;
+
+    document.getElementById("reviewsContainer").prepend(div);
+    this.reset();
+});
+</script>
+
+{% endblock %}
